@@ -1,0 +1,13 @@
+name: CD - CiCd
+
+on:
+  push: 
+    branches: ["master"]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: "cicdovelse"
+  GITHUB_ACTOR: "virtou2021"
+
+jobs:
+  
