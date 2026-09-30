@@ -23,7 +23,7 @@ env:
   SOLUTION_PATH: "CICD-Template.slnx"
 
 jobs:
-  build-and-test:
+  Build-and-Test:
     name: Build-and-Test
     # Docker runs on Linux, so we need to use a Linux runner
     runs-on: ubuntu-latest
