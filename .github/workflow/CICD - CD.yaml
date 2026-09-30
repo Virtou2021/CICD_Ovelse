@@ -23,31 +23,32 @@ env:
   SOLUTION_PATH: "CICD-Template.slnx"
 
 jobs:
-  name: Build-and-Test
-  # Docker runs on Linux, so we need to use a Linux runner
-  runs-on: ubuntu-latest
+  build-and-test:
+    name: Build-and-Test
+    # Docker runs on Linux, so we need to use a Linux runner
+    runs-on: ubuntu-latest
 
-  steps:
-    # Clones the repository to the empty runner/container
-    - name: Get Code
-      uses: actions/checkout@v7
-    # Github Markedplace fx: https://github.com/actions/setup-dotnet to view latest version of the action
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-    # Restore dependencies and nuget packets for the solution
-    - name: Restore Dependencies
-      run: dotnet restore ${{ env.SOLUTION_PATH }}
-    # Build the solution without restoring dependencies (restored in the previous step)
-    - name: Build Solution
-      run: dotnet build ${{ env.SOLUTION_PATH }} 
-        --configuration Release 
-        --no-restore
-    # Run the tests in the solution without restoring dependencies or building (both done in previous steps)
-    - name: Run Tests
-      run: dotnet test ${{ env.SOLUTION_PATH }}
-        --configuration Release
-        --no-restore
-        --no-build
-        --verbosity normal
+    steps:
+      # Clones the repository to the empty runner/container
+      - name: Get Code
+        uses: actions/checkout@v7
+      # Github Markedplace fx: https://github.com/actions/setup-dotnet to view latest version of the action
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      # Restore dependencies and nuget packets for the solution
+      - name: Restore Dependencies
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
+      # Build the solution without restoring dependencies (restored in the previous step)
+      - name: Build Solution
+        run: dotnet build ${{ env.SOLUTION_PATH }} 
+          --configuration Release 
+          --no-restore
+      # Run the tests in the solution without restoring dependencies or building (both done in previous steps)
+      - name: Run Tests
+        run: dotnet test ${{ env.SOLUTION_PATH }}
+          --configuration Release
+          --no-restore
+          --no-build
+          --verbosity normal
